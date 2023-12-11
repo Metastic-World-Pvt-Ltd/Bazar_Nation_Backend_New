@@ -4,6 +4,7 @@ const successMessages = require('../../response/successMessages');
 const OTP = require('../../models/OTP');
 const jwt = require('jsonwebtoken');
 const User = require('../../models/User');
+const uuid = require('uuid');
 module.exports.verifyOtp = async function(req, res){
     // try {
         logger.info(`Start`);
@@ -17,9 +18,10 @@ module.exports.verifyOtp = async function(req, res){
         if(validateOtp){
             if(validateOtp.otp == otp){
                 if(validateOtp.expiration > Date.now() ){
-                                       
+
                     const userData = await User.findOne({contact});
-                    
+                    console.log("userData",userData);
+                    if(userData){                   
                     const secret =  process.env.SECRET_KEY;
                 
                     jwt.sign({id:userData.userId, contact},secret , { algorithm: 'HS512' } , (err,token)=>{
@@ -30,6 +32,31 @@ module.exports.verifyOtp = async function(req, res){
                         logger.info(`End`);
                         return res.status(200).json({token , userData})
                     })
+                    }else{
+                        const email = '';
+                        const name  = 'Guest User';  
+
+                        const generateID = () => {
+                            const id = uuid.v4().replace(/-/g, ''); // Remove dashes from the generated UUID
+                            return id;
+                          };
+                          
+                        const userId = generateID();
+                        
+                        const userData = await User.create({
+                            userId , contact , name , email ,isUserExist:false
+                        })
+                        const secret =  process.env.SECRET_KEY;
+                    
+                        jwt.sign({id:userData.userId, contact},secret , { algorithm: 'HS512' } , (err,token)=>{
+                            if(err){
+                                logger.error(`Error - ${err}`)
+                                return res.json(errorMessages.SOMETHING_WENT_WRONG)
+                            }
+                            logger.info(`End`);
+                            return res.status(200).json({token , userData})
+                        })
+                    }
                 }else{
                     return res.status(498).json(errorMessages.OTP_EXPIRED);
                 }

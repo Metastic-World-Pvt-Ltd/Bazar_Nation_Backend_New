@@ -17,12 +17,7 @@ try {
     if(!contact){
         return res.status(400).json(errorMessages.CONTACT_IS_REQUIRED)
     }
-        const data = await User.findOne({contact});
 
-        
-        if(!data){
-            return res.status(404).json(errorMessages.USER_DOES_NOT_EXIST)
-        }
         // module.exports.expiration = expiration;
         // module.exports.otp = otp;
         const isExist =  await OTP.findOne({contact});
@@ -32,7 +27,7 @@ try {
         console.log(otp);
         logger.info(`OTP - ${otp}`)
         //set otp expiry time
-        const expiration= Date.now() + 120000;
+        const expiration= Date.now() + 300000;
         // console.log(isExist);
         if(isExist){
             const otpData = await OTP.findOneAndUpdate({contact},{otp , expiration},{new:true})
