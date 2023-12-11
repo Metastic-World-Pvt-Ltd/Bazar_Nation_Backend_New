@@ -4,14 +4,21 @@ const errorMessages = require('../../response/errorMessages');
 const successMessages = require('../../response/successMessages');
 const logger = require("../Logger/logger");
 const OTP = require('../../models/OTP');
+const User = require("../../models/User");
 
 module.exports.generateEmailOtp = async function(req, res){
     try {
         logger.info(`Start`);
         logger.info(successMessages.GENERATE_EMAIL_OTP_ACTIVATED)
             //user email address
-            var useremail = req.body.email;
-            logger.info(`Input - ${useremail}`)
+            var email = req.body.email;
+
+            logger.info(`Input - ${email}`)
+            const userData = await User.findOne({email});
+
+            if(!userData){
+                return res.status(404).json(errorMessages.USER_DOES_NOT_EXIST)
+            }
 
             const data = Math.floor(Math.random() * 9000) + 1000;
             var otp = data.toString();
@@ -22,13 +29,13 @@ module.exports.generateEmailOtp = async function(req, res){
         // // console.log(otp)
         //     module.exports.otp = otp;
         try {
-            const isExist =  await OTP.findOne({email:useremail});
+            const isExist =  await OTP.findOne({email});
         
             if(isExist){
-                const otpData = await OTP.findOneAndUpdate({email:useremail},{otp , expiration},{new:true})
+                const otpData = await OTP.findOneAndUpdate({email},{otp , expiration},{new:true})
             }else{
                 const otpData = await OTP.create({
-                    email:useremail , otp , expiration 
+                    email , otp , expiration 
                 })
             }
         } catch (error) {
@@ -56,7 +63,7 @@ module.exports.generateEmailOtp = async function(req, res){
         try {
             let info = await transporter.sendMail({
                 from: `no-reply@bmcsindia.in <${senderEmail}>`, // sender address
-                to: useremail, // list of receivers
+                to: email, // list of receivers
                 subject: "OTP Verification", // Subject line
                 text: `Enter the ${otp} to verify you Please do not share the OTP `, // plain text body
                 html: `Enter the <b>${otp}</b> to verify you Please do not share the OTP `, // html body

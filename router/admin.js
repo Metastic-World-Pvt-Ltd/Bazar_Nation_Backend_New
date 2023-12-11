@@ -21,7 +21,7 @@ const { importProduct } = require('../controllers/Admin/importPorduct');
 
 const router = express.Router();
 router.use(express.json());
-router.use(express.urlencoded());
+//router.use(express.urlencoded());
 // router.use(bodyParser.urlencoded());
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));

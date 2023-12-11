@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 require('dotenv').config();
 const db = require('./mongoose/mongoose');
-const port  = process.env.PORT ;
+const port  = process.env.PORT || 6000 ;
 app.use(cors())
 
 app.use(express.json());

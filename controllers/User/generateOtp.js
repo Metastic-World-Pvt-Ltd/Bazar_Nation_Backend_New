@@ -17,6 +17,15 @@ try {
     if(!contact){
         return res.status(400).json(errorMessages.CONTACT_IS_REQUIRED)
     }
+        const data = await User.findOne({contact});
+
+        
+        if(!data){
+            return res.status(404).json(errorMessages.USER_DOES_NOT_EXIST)
+        }
+        // module.exports.expiration = expiration;
+        // module.exports.otp = otp;
+        const isExist =  await OTP.findOne({contact});
 
         const otpInt = Math.floor(1000 + Math.random() *9000);
         const otp = otpInt.toString();
@@ -24,10 +33,6 @@ try {
         logger.info(`OTP - ${otp}`)
         //set otp expiry time
         const expiration= Date.now() + 120000;
-        
-        // module.exports.expiration = expiration;
-        // module.exports.otp = otp;
-        const isExist =  await OTP.findOne({contact});
         // console.log(isExist);
         if(isExist){
             const otpData = await OTP.findOneAndUpdate({contact},{otp , expiration},{new:true})
@@ -40,12 +45,13 @@ try {
         //sent otp to mobile
         const accountSid = process.env.accountSid;
         const authToken = process.env.authToken;
+        const number = process.env.PHONE_NUMBER;
         const client = require('twilio')(accountSid, authToken);
         
         client.messages
             .create({
                 body: `Enter the ${otp} to verify you Please do not share the OTP  `,
-                from: '+12292672362',
+                from: number,
                 to: contact,
             })
             //.then(message => console.log(message.sid))

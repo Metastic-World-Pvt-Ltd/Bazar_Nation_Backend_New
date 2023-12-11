@@ -2,6 +2,7 @@ const logger = require('../Logger/logger');
 const errorMessages = require('../../response/errorMessages');
 const successMessages = require('../../response/successMessages');
 const OTP = require('../../models/OTP');
+const User = require('../../models/User');
 
 module.exports.verifyEmailOtp = async function(req, res){
     try {
@@ -16,7 +17,18 @@ module.exports.verifyEmailOtp = async function(req, res){
         if(validateOtp){
             if(validateOtp.otp == otp){
                 if(validateOtp.expiration > Date.now() ){
-                    return res.status(200).json(successMessages.OTP_VERIFIED_SUCCESSFULLY);
+                    const userData = await User.findOne({email});
+                    
+                    const secret =  process.env.SECRET_KEY;
+                
+                    jwt.sign({id:userData._id, contact},secret , { algorithm: 'HS512' } , (err,token)=>{
+                        if(err){
+                            logger.error(`Error - ${err}`)
+                            return res.json(errorMessages.SOMETHING_WENT_WRONG)
+                        }
+                        logger.info(`End`);
+                        return res.status(200).json({token , userData})
+                    })
                 }else{
                     return res.status(498).json(errorMessages.OTP_EXPIRED);
                 }

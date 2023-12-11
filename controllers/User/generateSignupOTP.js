@@ -46,12 +46,13 @@ try {
         //sent otp to mobile
         const accountSid = process.env.accountSid;
         const authToken = process.env.authToken;
+        const number = process.env.PHONE_NUMBER;
         const client = require('twilio')(accountSid, authToken);
         
         client.messages
             .create({
                 body: `Enter the ${otp} to verify you Please do not share the OTP  `,
-                from: '+12292672362',
+                from: number,
                 to: contact,
             })
             //.then(message => console.log(message.sid))
