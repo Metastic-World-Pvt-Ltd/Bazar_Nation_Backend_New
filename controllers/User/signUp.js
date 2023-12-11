@@ -39,7 +39,7 @@ module.exports.signUp = async function(req, res){
                 })
                 const secret =  process.env.SECRET_KEY;
             
-                jwt.sign({id:userData._id, contact},secret , { algorithm: 'HS512' } , (err,token)=>{
+                jwt.sign({id:userData.userId, contact},secret , { algorithm: 'HS512' } , (err,token)=>{
                     if(err){
                         logger.error(`Error - ${err}`)
                         return res.json(errorMessages.SOMETHING_WENT_WRONG)
