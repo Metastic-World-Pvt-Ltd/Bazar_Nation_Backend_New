@@ -35,7 +35,7 @@ module.exports.verifyOtp = async function(req, res){
                     }else{
                         const email = '';
                         const name  = 'Guest User';  
-
+                        const user_DOB = '';
                         const generateID = () => {
                             const id = uuid.v4().replace(/-/g, ''); // Remove dashes from the generated UUID
                             return id;
@@ -44,7 +44,7 @@ module.exports.verifyOtp = async function(req, res){
                         const userId = generateID();
                         
                         const userData = await User.create({
-                            userId , contact , name , email ,isUserExist:false
+                            userId , contact , name , email , user_DOB ,isUserExist:false
                         })
                         const secret =  process.env.SECRET_KEY;
                     
