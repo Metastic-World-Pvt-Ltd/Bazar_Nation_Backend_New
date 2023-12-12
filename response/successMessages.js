@@ -26,6 +26,7 @@ module.exports = {
     CREATE_SUPPORT_TICKET_ACTIVATED:'Create Support Ticket Endpoit Activated',
     TICKET_CREATED_SUCCESSFULLY:'Ticket Created Successfully!',
     RECORD_UPDATED_SUCCESSFULLY:'Record Updated Successfully!',
+    PROFILE_UPDATED_SUCCESSFULLY:'Profile Updated Successfully!',
     
     
 };

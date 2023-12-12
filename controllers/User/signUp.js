@@ -18,13 +18,17 @@ try {
         logger.error(errorMessages.ALL_FIELDS_REQUIRED);
         return res.status(400).json(errorMessages.ALL_FIELDS_REQUIRED);
     }
-    
+    const isExist = await User.findOne({email});
+   
+    if(isExist){
+        return res.status(422).json(errorMessages.EMAIL_ALLREADY_EXIST)
+    }
     const validateOtp = await User.findOneAndUpdate({userId},{name , email , gender},{new:true});
     
     if(!validateOtp){
         return res.status(404).json(errorMessages.USER_DOES_NOT_EXIST);
     }else{
-        return res.status(200).json(successMessages.OTP_VERIFIED_SUCCESSFULLY);
+        return res.status(200).json(successMessages.PROFILE_UPDATED_SUCCESSFULLY);
     }
 
 
