@@ -7,7 +7,7 @@ const OTP = require('../../models/OTP');
 const User = require("../../models/User");
 
 module.exports.generateEmailOtp = async function(req, res){
-    try {
+    // try {
         logger.info(`Start`);
         logger.info(successMessages.GENERATE_EMAIL_OTP_ACTIVATED)
             //user email address
@@ -23,7 +23,7 @@ module.exports.generateEmailOtp = async function(req, res){
             const data = Math.floor(Math.random() * 9000) + 1000;
             var otp = data.toString();
             //set otp expiry time
-            const expiration= Date.now() + 120000;
+            const expiration= Date.now() + 300000;
             logger.info(`OTP - ${otp}`)    
         //     module.exports.expiration = expiration;
         // // console.log(otp)
@@ -82,8 +82,8 @@ module.exports.generateEmailOtp = async function(req, res){
             logger.error(`Error - ${error}`)
             return res.json(error);
         }
-    } catch (error) {
-        logger.error(errorMessages.GENERATE_EMAIL_OTP_FAILED)
-        return res.status(500).json(errorMessages.INTERNAL_ERROR)
-    }
+    // } catch (error) {
+    //     logger.error(errorMessages.GENERATE_EMAIL_OTP_FAILED)
+    //     return res.status(500).json(errorMessages.INTERNAL_ERROR)
+    // }
 }

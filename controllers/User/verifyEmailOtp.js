@@ -3,7 +3,7 @@ const errorMessages = require('../../response/errorMessages');
 const successMessages = require('../../response/successMessages');
 const OTP = require('../../models/OTP');
 const User = require('../../models/User');
-
+const jwt = require('jsonwebtoken');
 module.exports.verifyEmailOtp = async function(req, res){
     try {
         logger.info(`Start`);
@@ -21,7 +21,7 @@ module.exports.verifyEmailOtp = async function(req, res){
                     
                     const secret =  process.env.SECRET_KEY;
                 
-                    jwt.sign({id:userData.userId, contact},secret , { algorithm: 'HS512' } , (err,token)=>{
+                    jwt.sign({id:userData.userId, email},secret , { algorithm: 'HS512' } , (err,token)=>{
                         if(err){
                             logger.error(`Error - ${err}`)
                             return res.json(errorMessages.SOMETHING_WENT_WRONG)
