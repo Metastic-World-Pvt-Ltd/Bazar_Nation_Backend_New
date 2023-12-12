@@ -2,7 +2,7 @@ module.exports = {
     GENERATE_OTP_ACTIVATED:'Generate Mobile OTP Endpoint Activated',
     OTP_SENT_SUCCESSFULLY:'OTP Has been send Successfully!',
     VERIFY_OTP_ACTIVATED:'Verify OTP Endpoint Actiavted',
-    OTP_VERIFIED_SUCCESSFULLY:'OTP Verified SUccessfully!',
+    OTP_VERIFIED_SUCCESSFULLY:'OTP Verified Successfully!',
     GENERATE_EMAIL_OTP_ACTIVATED:'Generate Email OTP Endpoint Activated',
     EMAIL_OTP_SENT_SUCCESSFULLY:'OTP Send Successfully on your email',
     VERIFY_EMAIL_OTP_ACTIVATED:'Verify Email OTP Activated',
