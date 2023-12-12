@@ -13,7 +13,11 @@ module.exports.generateSignupEMailOtp = async function(req, res){
             //user email address
             var useremail = req.body.email;
             logger.info(`Input - ${useremail}`)
-
+            const isEmail = await User.findOne({email:useremail});
+            if(isEmail.isEmailVerified == false){
+                return res.status(401).json(errorMessages.ACCESS_DENIED);
+            }
+            
             const data = Math.floor(Math.random() * 9000) + 1000;
             var otp = data.toString();
             //set otp expiry time
