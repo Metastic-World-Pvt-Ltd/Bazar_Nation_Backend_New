@@ -10,6 +10,9 @@ const { generateSignupOTP } = require('../controllers/User/generateSignupOTP');
 const { generateSignupEMailOtp } = require('../controllers/User/generateSignupEMailOtp');
 const { addToCart } = require('../controllers/User/addToCart');
 const { getUserCart } = require('../controllers/User/getUserCart');
+const { logout } = require('../controllers/User/logout');
+const { getProfile } = require('../controllers/User/getProfile');
+const { verifyUser } = require('../middleware/verifyUser');
 
 const router = express.Router();
 router.use(express.json());
@@ -39,5 +42,9 @@ router.post('/signin' ,signIn);
 router.post('/addtocart',addToCart);
 //Get User Cart Details
 router.get('/getusercart',getUserCart);
+//Logout User
+router.post('/logout' , logout);
+//Get User Profile
+router.get('/userprofile', verifyUser ,getProfile);
 
 module.exports = router;

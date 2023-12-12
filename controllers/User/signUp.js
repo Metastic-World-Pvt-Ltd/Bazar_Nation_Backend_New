@@ -24,7 +24,7 @@ try {
         return res.status(422).json(errorMessages.EMAIL_ALLREADY_EXIST)
     }
     const validateOtp = await User.findOneAndUpdate({userId},{name , email , gender , isUserExist:true},{new:true});
-    
+    console.log("validateOtp",validateOtp);
     if(!validateOtp){
         return res.status(404).json(errorMessages.USER_DOES_NOT_EXIST);
     }else{

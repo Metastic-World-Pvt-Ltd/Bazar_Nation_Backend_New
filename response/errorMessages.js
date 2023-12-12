@@ -27,5 +27,6 @@ module.exports = {
     CREATE_TICKET_FAILED:'Create Ticket Endpoint Failed',
     ACCESS_DENIED:'Access Denied',
     COMMENT_REQUIRED:'Comment is Required',
+    TOKEN_NOT_FOUND: 'Please Provide Token',
     
 };
