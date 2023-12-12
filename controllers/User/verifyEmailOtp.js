@@ -18,7 +18,9 @@ module.exports.verifyEmailOtp = async function(req, res){
             if(validateOtp.otp == otp){
                 if(validateOtp.expiration > Date.now() ){
                     const userData = await User.findOne({email});
-                    
+                    if(userData.isEmailVerified == false){
+                        const updateEmail =  await User.findOneAndUpdate({email},{isEmailVerified:true},{new:true})
+                    }
                     const secret =  process.env.SECRET_KEY;
                 
                     jwt.sign({id:userData.userId, email},secret , { algorithm: 'HS512' } , (err,token)=>{

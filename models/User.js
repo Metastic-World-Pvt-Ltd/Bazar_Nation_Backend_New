@@ -22,6 +22,9 @@ const userData =  new mongoose.Schema({
     user_DOB:{
         type:String,
     },
+    isEmailVerified:{
+        type:Boolean,
+    },
     isUserExist:{
         type:Boolean,
     }

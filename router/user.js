@@ -13,6 +13,7 @@ const { getUserCart } = require('../controllers/User/getUserCart');
 const { logout } = require('../controllers/User/logout');
 const { getProfile } = require('../controllers/User/getProfile');
 const { verifyUser } = require('../middleware/verifyUser');
+const { updateEmail } = require('../controllers/User/updateEmail');
 
 const router = express.Router();
 router.use(express.json());
@@ -30,6 +31,8 @@ router.post('/verifyOtp' ,verifyOtp);
 router.post('/generateEmailOtp' ,generateEmailOtp);
 //Verify Email OTP
 router.post('/verifyemailotp' ,verifyEmailOtp);
+//Updated Email
+router.post('/updateEmail',updateEmail);
 //Generate Sign up Mobile OTP
 router.post('/signupotp',  generateSignupOTP );
 //Genearte Sign up Email OTP

@@ -31,7 +31,6 @@ try {
         return res.status(200).json(successMessages.PROFILE_UPDATED_SUCCESSFULLY);
     }
 
-
            
 
 } catch (error) {

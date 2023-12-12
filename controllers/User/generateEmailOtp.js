@@ -19,7 +19,10 @@ module.exports.generateEmailOtp = async function(req, res){
             if(!userData){
                 return res.status(404).json(errorMessages.USER_DOES_NOT_EXIST)
             }
-
+            console.log("userData",userData);
+            if(userData.isEmailVerified == false){
+                return res.status(401).json(errorMessages.ACCESS_DENIED)
+            }
             const data = Math.floor(Math.random() * 9000) + 1000;
             var otp = data.toString();
             //set otp expiry time

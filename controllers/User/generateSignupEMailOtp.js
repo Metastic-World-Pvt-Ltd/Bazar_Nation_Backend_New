@@ -22,10 +22,7 @@ module.exports.generateSignupEMailOtp = async function(req, res){
         //     module.exports.expiration = expiration;
         // // console.log(otp)
         //     module.exports.otp = otp;
-        const checkUser = await User.findOne({email:useremail});
-        if(checkUser){
-            return res.status(422).json(errorMessages.EMAIL_ALLREADY_EXIST);
-        }
+
         try {
             const isExist =  await OTP.findOne({email:useremail});
         

@@ -3,9 +3,9 @@ const errorMessages = require('../../response/errorMessages');
 const successMessages = require('../../response/successMessages');
 const OTP = require('../../models/OTP');
 const User = require('../../models/User');
-
+const jwt = require('jsonwebtoken')
 module.exports.updateEmail = async function(req, res){
-    try {
+    // try {
         logger.info(`Start`);
         logger.info(successMessages.VERIFY_EMAIL_OTP_ACTIVATED)
         //check for user input
@@ -17,11 +17,11 @@ module.exports.updateEmail = async function(req, res){
         if(validateOtp){
             if(validateOtp.otp == otp){
                 if(validateOtp.expiration > Date.now() ){
-                    const userData = await User.findOneAndUpdate({userId},{email},{new:true});
+                    const userData = await User.findOneAndUpdate({userId},{isEmailVerified:true},{new:true});
                     
                     const secret =  process.env.SECRET_KEY;
                 
-                    jwt.sign({id:userData.userId, contact},secret , { algorithm: 'HS512' } , (err,token)=>{
+                    jwt.sign({id:userId, email},secret , { algorithm: 'HS512' } , (err,token)=>{
                         if(err){
                             logger.error(`Error - ${err}`)
                             return res.json(errorMessages.SOMETHING_WENT_WRONG)
@@ -39,9 +39,9 @@ module.exports.updateEmail = async function(req, res){
             return res.status(404).json(errorMessages.INVALID_OTP)
         }
 
-    } catch (error) {
-        logger.error(errorMessages.VERIFY_EMAIL_OTP_FAILED);
-        return res.status(500).json(errorMessages.INTERNAL_ERROR)
-    }
+    // } catch (error) {
+    //     logger.error(errorMessages.VERIFY_EMAIL_OTP_FAILED);
+    //     return res.status(500).json(errorMessages.INTERNAL_ERROR)
+    // }
 
 }
