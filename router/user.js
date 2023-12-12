@@ -27,7 +27,7 @@ router.post('/generateOtp' ,generateOtp);
 //Verify OtP
 router.post('/verifyOtp' ,verifyOtp);
 //generate Email OTP
-router.post('/genrateemailotp' ,generateEmailOtp);
+router.post('/generateEmailOtp' ,generateEmailOtp);
 //Verify Email OTP
 router.post('/verifyemailotp' ,verifyEmailOtp);
 //Generate Sign up Mobile OTP
