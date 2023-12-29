@@ -12,5 +12,5 @@ module.exports.getUserCart = async function(req , res){
 
     // console.log("Data",data);
     
-    res.status(200).json({'cart':data});
+    res.status(200).json({'cart':data[0]});
 }
