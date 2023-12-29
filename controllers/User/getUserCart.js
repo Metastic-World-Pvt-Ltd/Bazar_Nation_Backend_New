@@ -10,7 +10,7 @@ module.exports.getUserCart = async function(req , res){
 
     const data = await Cart.find({userId});
 
-    console.log("Data",data);
+    // console.log("Data",data);
     
-    res.status(200).json(data);
+    res.status(200).json({'cart':data});
 }
