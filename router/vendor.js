@@ -4,6 +4,7 @@ const { verifyEmailOtp } = require('../controllers/User/verifyEmailOtp');
 const { verifyOtp } = require('../controllers/User/verifyOtp');
 const { signupEmailOtp } = require('../controllers/Vendor/signupEmailOtp');
 const { signupMobileOtp } = require('../controllers/Vendor/signupMobileOtp');
+const { getVendors } = require('../controllers/Vendor/getVendors');
 
 
 const router = express.Router();
@@ -24,5 +25,8 @@ router.post('/verifyemail',verifyEmailOtp);
 router.post('/verifymobile',verifyOtp);
 
 router.post('/vendorsignup',vendorSignup);
+
+router.get('/getvendors' , getVendors);
+
 
 module.exports = router;

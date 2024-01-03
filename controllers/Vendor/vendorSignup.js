@@ -27,9 +27,9 @@ module.exports.vendorSignup = async function(req , res){
         const firstThreeCharacters = stringWithoutSpaces.slice(0, 3); // Get the first 3 characters
         const upperCase = firstThreeCharacters.toUpperCase();
         const vendorId =  upperCase + Date.now();
-
+        const status = 'Active'; 
         const vendorData = new Vendor({
-            vendorId ,vendorName , contact , email , password , storeName , productType , city , state 
+            vendorId ,vendorName , contact , email , password , storeName , productType , city , state , status 
         })
 
         await vendorData.save();
