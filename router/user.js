@@ -42,7 +42,7 @@ router.post('/signup',signUp);
 //User Sign IN
 router.post('/signin' ,signIn);
 //Add Product to Cart
-router.post('/addtocart',addToCart);
+router.post('/userAddtoCart',addToCart);
 //Get User Cart Details
 router.get('/getusercart',getUserCart);
 //Logout User
