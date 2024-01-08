@@ -17,6 +17,7 @@ const { getCategoryById } = require('../controllers/Admin/getCategoryById');
 const { updateCategory } = require('../controllers/Admin/updateCategory');
 const { getAllSubCategory } = require('../controllers/Admin/getAllSubCategory');
 const { importProduct } = require('../controllers/Admin/importPorduct');
+const { getProductByCategory } = require('../controllers/Admin/getProductByCategory');
 
 
 const router = express.Router();
@@ -74,5 +75,6 @@ router.patch('/updatecategory',updateCategory);
 router.get('/getSubCategory',getAllSubCategory) ;
 //import bulk product
 router.post('/importproduct', upload.single('csvFile'),importProduct)
-
+//Get Product by subcategory
+router.get('/productsBySubcat',getProductByCategory);
 module.exports = router;
