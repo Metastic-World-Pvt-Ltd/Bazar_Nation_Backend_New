@@ -54,7 +54,12 @@ router.patch('/editproduct', upload.fields([
   { name: 'file' }
 ]),editProduct);
 //Add Category
-router.post('/addcategory',addCategory);
+router.post('/addcategory',upload.fields([
+  {name : 'imageURL'},
+  {name:'bannerImage'},
+  {name:'productImage'},
+
+]),addCategory);
 //Get All category
 router.get('/allcategory',getAllCategory);
 //Delete Category
@@ -66,7 +71,7 @@ router.get('/getcategory',getCategoryById);
 //Update Category by Id
 router.patch('/updatecategory',updateCategory);
 //Get all sub category
-router.get('/allsubcategory',getAllSubCategory) ;
+router.get('/getSubCategory',getAllSubCategory) ;
 //import bulk product
 router.post('/importproduct', upload.single('csvFile'),importProduct)
 
